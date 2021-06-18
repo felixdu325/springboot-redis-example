@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dfz.dao.EmployeeDao">
+
+	<resultMap type="com.dfz.model.Employee" id="BaseResult">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="age" property="age"/>
+		<result column="email" property="email"/>
+		<result column="dept_id" property="deptId"/>
+	</resultMap>
+
+    <select id="findAll" resultMap="BaseResult">
+        select * from employee
+    </select>
+    
+    <select id="findById" resultMap="BaseResult" parameterType="Integer">
+    	select * from employee where id=#{id}
+    </select>
+    
+    <insert id="insert" parameterType="com.dfz.model.Employee">
+    	INSERT INTO employee(name, email, age, dept_id) VALUES(#{name}, #{email}, #{age}, #{deptId})
+    </insert>
+    
+    <update id="update" parameterType="com.dfz.model.Employee">
+	    UPDATE employee SET 
+		    name = #{name},
+		    email = #{email},
+		    age = #{age}, 
+		    dept_id = #{deptId} 
+	    WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="Integer">
+		delete from employee where id=#{id}
+	</delete>
+	
+	<!-- delete from employee -->
+	<delete id="deleteAll">
+		TRUNCATE TABLE employee
+	</delete>
+    
+</mapper>
